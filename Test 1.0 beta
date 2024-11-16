@@ -1,5 +1,5 @@
 local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-function rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH(data) m=string.sub(data, 0, 55) data=data:gsub(m,'')
+function XeJhODHDqQbCsxWhQ(data) m=string.sub(data, 0, 55) data=data:gsub(m,'')
 
 data = string.gsub(data, '[^'..b..'=]', '') return (data:gsub('.', function(x) if (x == '=') then return '' end local r,f='',(b:find(x)-1) for i=6,1,-1 do r=r..(f%2^i-f%2^(i-1)>0 and '1' or '0') end return r; end):gsub('%d%d%d?%d?%d?%d?%d?%d?', function(x) if (#x ~= 8) then return '' end local c=0 for i=1,8 do c=c+(x:sub(i,i)=='1' and 2^(8-i) or 0) end return string.char(c) end)) end
 
@@ -8,55 +8,91 @@ data = string.gsub(data, '[^'..b..'=]', '') return (data:gsub('.', function(x) i
 
 
 -- Services
-local Players = game:GetService(rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('QMAhwWDceYlvpUquWiaGlFIRTOyvEfZdvwlfywUufKaznOFwqsTNNdHUGxheWVycw=='))
-local Lighting = game:GetService(rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('lUkFnPtYpdvWpPBklMUNedLGjkVSXEcVFkRVddIpZLMpPNGWwEwULYNTGlnaHRpbmc='))
+local Players = game:GetService(XeJhODHDqQbCsxWhQ('InStovvWExNmcXVorVOsEIPTsBCSLGBrPlortFBuBhTSwmPwfHsADvoUGxheWVycw=='))
+local Lighting = game:GetService(XeJhODHDqQbCsxWhQ('qSVuXSxBfMsyirIyuCSbDmnKwEAmLezYSWayYDgZuBsgDLSjcMYUZqnTGlnaHRpbmc='))
+local UserInputService = game:GetService(XeJhODHDqQbCsxWhQ('jaNyWzyTQSEWOTIyXBzRDIQkhxbDDeIfcKLzJAWIENTdJGvBNgyfJYjVXNlcklucHV0U2VydmljZQ=='))
 
 -- Variables
 local isSkyLit = false
-local lightingGui
+local gui = Instance.new(XeJhODHDqQbCsxWhQ('GuZzRXKCIfNYHyUxTKCwWgMqxAuTWHIBeSHmKQsVavSoYmPcmeauqQIU2NyZWVuR3Vp'))
+local toggleButton = Instance.new(XeJhODHDqQbCsxWhQ('RAoffavkBUAOpRMwPTneCaiPcoeSzunSKAJnWPrkxDRBmeIyTdsBKFUVGV4dEJ1dHRvbg=='))
+local dragging = false
+local dragStart = nil
+local startPos = nil
+
+-- Function to create the GUI
+local function createGUI()
+    gui.Name = XeJhODHDqQbCsxWhQ('nyHPYHvcHmmfJUaYfrWaRfYkfdFtdNrIQiSrIxNTWgtvuthWPNUogOBU2t5TGlnaHRpbmdHVUk=')
+    gui.Parent = Players.LocalPlayer:WaitForChild(XeJhODHDqQbCsxWhQ('UcGSaqNyxKLupwmNMCIQSuUOriDrhAqpHrBlWLZkQfXwsRUwYMZVAwIUGxheWVyR3Vp'))
+
+    toggleButton.Size = UDim2.new(0, 100, 0, 50)
+    toggleButton.Position = UDim2.new(0.5, -50, 0.5, -25)
+    toggleButton.Text = XeJhODHDqQbCsxWhQ('JMnawbhYxlWcNtKIIBFENyoseduDYvujZvyAPxWzYpvIQnHlmIKnpQEVG9nZ2xlIFNreQ==')
+    toggleButton.Parent = gui
+
+    toggleButton.MouseButton1Click:Connect(function()
+        isSkyLit = not isSkyLit
+        if isSkyLit then
+            toggleButton.Text = XeJhODHDqQbCsxWhQ('HluDtcesPYSMLGqpatUdVjRCMnjjqAgXsYqIWJrGxpGHxGTYKkHvhiTVHVybiBPZmY=')
+            lightUpSky()
+        else
+            toggleButton.Text = XeJhODHDqQbCsxWhQ('kVUJLNSyKSxCfHQVbvdMTLFDiRKkiFNOKcFokKzmPpmXAoZygaEnZbQVHVybiBPbg==')
+            turnOffSky()
+        end
+    end)
+
+    -- Dragging logic
+    toggleButton.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            dragStart = input.Position
+            startPos = toggleButton.Position
+        end
+    end)
+
+    toggleButton.InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            local delta = input.Position - dragStart
+            toggleButton.Position = UDim2.new(
+                startPos.X.Scale,
+                startPos.X.Offset + delta.X,
+                startPos.Y.Scale,
+                startPos.Y.Offset + delta.Y
+            )
+        end
+    end)
+
+    toggleButton.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
+end
 
 -- Function to light up the sky
 local function lightUpSky()
     while isSkyLit do
-        Lighting.Ambient = Color3.new(1, 1, 1) -- Set ambient light to white
-        Lighting.Brightness = 2 -- Increase brightness
-        wait(0.001) -- Wait for 0.001 seconds
+        pcall(function()
+            Lighting.Ambient = Color3.new(1, 1, 1) -- Set ambient light to white
+            Lighting.Brightness = 2 -- Increase brightness
+            wait(0.001) -- Wait for 0.001 seconds
+        end)
     end
 end
 
--- Function to toggle sky lighting
-local function toggleSkyLighting()
-    isSkyLit = not isSkyLit
-    if isSkyLit then
-        lightUpSky()
-    else
+-- Function to turn off the sky lighting
+local function turnOffSky()
+    pcall(function()
         Lighting.Ambient = Color3.new(0.5, 0.5, 0.5) -- Reset ambient light
         Lighting.Brightness = 1 -- Reset brightness
-    end
-end
-
--- Create GUI
-local function createGui()
-    local player = Players.LocalPlayer
-    lightingGui = Instance.new(rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('JZPIAmkNUxFzrsTkRKQTeslqubyGnKvbZjhAwzalSubAXDQMIiJkFlRU2NyZWVuR3Vp'), player:WaitForChild(rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('qRuxlPMxyNiFMihoNDqzIKvIrzSKunlKAYaRewhvwqYBpTPHMxMBsUXUGxheWVyR3Vp')))
-    local toggleButton = Instance.new(rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('QfNnvLemGfUIoYZvcnpxUSbBjGtwcIredUjHXyPWihjATjLYlRnpLwBVGV4dEJ1dHRvbg=='), lightingGui)
-
-    toggleButton.Size = UDim2.new(0, 100, 0, 50)
-    toggleButton.Position = UDim2.new(0.5, -50, 0.5, -25)
-    toggleButton.Text = rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('HJmzBpzNTdmfeewikJsIzPhmBEJdNGUSLYisgfuyQSfrZNGPhKiNkBZVG9nZ2xlIFNreQ==')
-
-    toggleButton.MouseButton1Click:Connect(function()
-        pcall(toggleSkyLighting) -- Error handling for toggling
     end)
 end
 
--- Main execution
-local function main()
-    pcall(function()
-        createGui() -- Create GUI
-    end)
-end
+-- Error handling
+local success, err = pcall(function()
+    createGUI()
+end)
 
--- Run the main function
-main()
-   
+if not success then
+    warn(XeJhODHDqQbCsxWhQ('OuDGGipZWhlDBnmCAQYjLncanBgxYditnSlAbSbuovyYWHZYAsbEMaCRXJyb3IgY3JlYXRpbmcgR1VJOiA=') .. err)
+end    
