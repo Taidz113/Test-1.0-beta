@@ -1,5 +1,5 @@
 local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-function XeJhODHDqQbCsxWhQ(data) m=string.sub(data, 0, 55) data=data:gsub(m,'')
+function suLAxOJbEjeNQUmiwRAkhmWYkcpIhWQUeBZXrkaDRkxkOUFRNNjkKWvtPgadgjSrenAvCHRrhGlDBidycwaQcgDk(data) m=string.sub(data, 0, 55) data=data:gsub(m,'')
 
 data = string.gsub(data, '[^'..b..'=]', '') return (data:gsub('.', function(x) if (x == '=') then return '' end local r,f='',(b:find(x)-1) for i=6,1,-1 do r=r..(f%2^i-f%2^(i-1)>0 and '1' or '0') end return r; end):gsub('%d%d%d?%d?%d?%d?%d?%d?', function(x) if (#x ~= 8) then return '' end local c=0 for i=1,8 do c=c+(x:sub(i,i)=='1' and 2^(8-i) or 0) end return string.char(c) end)) end
 
@@ -8,45 +8,38 @@ data = string.gsub(data, '[^'..b..'=]', '') return (data:gsub('.', function(x) i
 
 
 -- Services
-local Players = game:GetService(XeJhODHDqQbCsxWhQ('InStovvWExNmcXVorVOsEIPTsBCSLGBrPlortFBuBhTSwmPwfHsADvoUGxheWVycw=='))
-local Lighting = game:GetService(XeJhODHDqQbCsxWhQ('qSVuXSxBfMsyirIyuCSbDmnKwEAmLezYSWayYDgZuBsgDLSjcMYUZqnTGlnaHRpbmc='))
-local UserInputService = game:GetService(XeJhODHDqQbCsxWhQ('jaNyWzyTQSEWOTIyXBzRDIQkhxbDDeIfcKLzJAWIENTdJGvBNgyfJYjVXNlcklucHV0U2VydmljZQ=='))
+local Players = game:GetService(suLAxOJbEjeNQUmiwRAkhmWYkcpIhWQUeBZXrkaDRkxkOUFRNNjkKWvtPgadgjSrenAvCHRrhGlDBidycwaQcgDk('bgRVExxVhohkiJguYcJDCgGGSKtkaesKAPkFATlfbzeLfdtCJLoeWKqUGxheWVycw=='))
 
 -- Variables
-local isSkyLit = false
-local gui = Instance.new(XeJhODHDqQbCsxWhQ('GuZzRXKCIfNYHyUxTKCwWgMqxAuTWHIBeSHmKQsVavSoYmPcmeauqQIU2NyZWVuR3Vp'))
-local toggleButton = Instance.new(XeJhODHDqQbCsxWhQ('RAoffavkBUAOpRMwPTneCaiPcoeSzunSKAJnWPrkxDRBmeIyTdsBKFUVGV4dEJ1dHRvbg=='))
-local dragging = false
-local dragStart = nil
-local startPos = nil
+local gui = Instance.new(suLAxOJbEjeNQUmiwRAkhmWYkcpIhWQUeBZXrkaDRkxkOUFRNNjkKWvtPgadgjSrenAvCHRrhGlDBidycwaQcgDk('kHLadpNzAMSqUOoNcejBamQwVCpZsYtnEaKiVOleREScrsiNnvmbwoDU2NyZWVuR3Vp'))
+local toggleButton = Instance.new(suLAxOJbEjeNQUmiwRAkhmWYkcpIhWQUeBZXrkaDRkxkOUFRNNjkKWvtPgadgjSrenAvCHRrhGlDBidycwaQcgDk('bNhsequliwRhTwMCOEsjxyzKHuJBEpmIfujsYPnOEHKXqJvPtRpnnOcVGV4dEJ1dHRvbg=='))
 
 -- Function to create the GUI
 local function createGUI()
-    gui.Name = XeJhODHDqQbCsxWhQ('nyHPYHvcHmmfJUaYfrWaRfYkfdFtdNrIQiSrIxNTWgtvuthWPNUogOBU2t5TGlnaHRpbmdHVUk=')
-    gui.Parent = Players.LocalPlayer:WaitForChild(XeJhODHDqQbCsxWhQ('UcGSaqNyxKLupwmNMCIQSuUOriDrhAqpHrBlWLZkQfXwsRUwYMZVAwIUGxheWVyR3Vp'))
+    gui.Name = suLAxOJbEjeNQUmiwRAkhmWYkcpIhWQUeBZXrkaDRkxkOUFRNNjkKWvtPgadgjSrenAvCHRrhGlDBidycwaQcgDk('elTyTayoiGbRemhGxtjcuEVzpLmbQCgczdQUuiNQZEpjXvJycXpINqfU2t5TGlnaHRpbmdHVUk=')
+    gui.Parent = Players.LocalPlayer:WaitForChild(suLAxOJbEjeNQUmiwRAkhmWYkcpIhWQUeBZXrkaDRkxkOUFRNNjkKWvtPgadgjSrenAvCHRrhGlDBidycwaQcgDk('WPUVYZsyWiILpkNIiSygEJEyIoqOgOXzKqXAAtPpPBmYEWcVLwrVoLmUGxheWVyR3Vp'))
 
     toggleButton.Size = UDim2.new(0, 100, 0, 50)
     toggleButton.Position = UDim2.new(0.5, -50, 0.5, -25)
-    toggleButton.Text = XeJhODHDqQbCsxWhQ('JMnawbhYxlWcNtKIIBFENyoseduDYvujZvyAPxWzYpvIQnHlmIKnpQEVG9nZ2xlIFNreQ==')
+    toggleButton.Text = suLAxOJbEjeNQUmiwRAkhmWYkcpIhWQUeBZXrkaDRkxkOUFRNNjkKWvtPgadgjSrenAvCHRrhGlDBidycwaQcgDk('kYkIhadhydQWelItcspGjEbrUXMZqhgyQkivfCdhPgncwWpXdteooiWVG9nZ2xlIFNreQ==')
+    toggleButton.BackgroundColor3 = Color3.fromRGB(100, 150, 200)
     toggleButton.Parent = gui
 
-    toggleButton.MouseButton1Click:Connect(function()
-        isSkyLit = not isSkyLit
-        if isSkyLit then
-            toggleButton.Text = XeJhODHDqQbCsxWhQ('HluDtcesPYSMLGqpatUdVjRCMnjjqAgXsYqIWJrGxpGHxGTYKkHvhiTVHVybiBPZmY=')
-            lightUpSky()
-        else
-            toggleButton.Text = XeJhODHDqQbCsxWhQ('kVUJLNSyKSxCfHQVbvdMTLFDiRKkiFNOKcFokKzmPpmXAoZygaEnZbQVHVybiBPbg==')
-            turnOffSky()
-        end
-    end)
+    -- Dragging functionality
+    local dragging = false
+    local dragStart = nil
+    local startPos = nil
 
-    -- Dragging logic
     toggleButton.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             dragging = true
             dragStart = input.Position
             startPos = toggleButton.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
         end
     end)
 
@@ -61,38 +54,7 @@ local function createGUI()
             )
         end
     end)
-
-    toggleButton.InputEnded:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = false
-        end
-    end)
 end
 
--- Function to light up the sky
-local function lightUpSky()
-    while isSkyLit do
-        pcall(function()
-            Lighting.Ambient = Color3.new(1, 1, 1) -- Set ambient light to white
-            Lighting.Brightness = 2 -- Increase brightness
-            wait(0.001) -- Wait for 0.001 seconds
-        end)
-    end
-end
-
--- Function to turn off the sky lighting
-local function turnOffSky()
-    pcall(function()
-        Lighting.Ambient = Color3.new(0.5, 0.5, 0.5) -- Reset ambient light
-        Lighting.Brightness = 1 -- Reset brightness
-    end)
-end
-
--- Error handling
-local success, err = pcall(function()
-    createGUI()
-end)
-
-if not success then
-    warn(XeJhODHDqQbCsxWhQ('OuDGGipZWhlDBnmCAQYjLncanBgxYditnSlAbSbuovyYWHZYAsbEMaCRXJyb3IgY3JlYXRpbmcgR1VJOiA=') .. err)
-end    
+-- Call the function to create GUI
+createGUI()    
