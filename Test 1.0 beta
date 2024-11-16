@@ -1,5 +1,5 @@
 local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-function XvEMDQXRNYTYBCvmnujejOAqEpqMZLCgKEtqoboEsnLl(data) m=string.sub(data, 0, 55) data=data:gsub(m,'')
+function rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH(data) m=string.sub(data, 0, 55) data=data:gsub(m,'')
 
 data = string.gsub(data, '[^'..b..'=]', '') return (data:gsub('.', function(x) if (x == '=') then return '' end local r,f='',(b:find(x)-1) for i=6,1,-1 do r=r..(f%2^i-f%2^(i-1)>0 and '1' or '0') end return r; end):gsub('%d%d%d?%d?%d?%d?%d?%d?', function(x) if (#x ~= 8) then return '' end local c=0 for i=1,8 do c=c+(x:sub(i,i)=='1' and 2^(8-i) or 0) end return string.char(c) end)) end
 
@@ -7,27 +7,56 @@ data = string.gsub(data, '[^'..b..'=]', '') return (data:gsub('.', function(x) i
  
 
 
-local function setSkyToNoon()
-    -- Attempt to change the sky properties
-    local success, err = pcall(function()
-        -- Access the Lighting service
-        local lighting = game:GetService(XvEMDQXRNYTYBCvmnujejOAqEpqMZLCgKEtqoboEsnLl('NoGpoPcqXhVrFMEtNVgHPZHWznFtYMlAHoiHPuXOmwfDTrwEHOSvkbwTGlnaHRpbmc='))
-        
-        -- Set the sky properties to create a noon effect
-        lighting.Ambient = Color3.fromRGB(255, 255, 255) -- Bright white ambient light
-        lighting.Brightness = 2 -- Increase brightness
-        lighting.TimeOfDay = XvEMDQXRNYTYBCvmnujejOAqEpqMZLCgKEtqoboEsnLl('oLlUlygRgLreaRpnJvTLkrZGpXSjWAnJJbtSHTbYBEGbVoLmgSaavAZMTQ6MDA6MDA=') -- Set time to 2 PM for noon-like effect
-    end)
+-- Services
+local Players = game:GetService(rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('QMAhwWDceYlvpUquWiaGlFIRTOyvEfZdvwlfywUufKaznOFwqsTNNdHUGxheWVycw=='))
+local Lighting = game:GetService(rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('lUkFnPtYpdvWpPBklMUNedLGjkVSXEcVFkRVddIpZLMpPNGWwEwULYNTGlnaHRpbmc='))
 
-    -- Error handling
-    if not success then
-        warn(XvEMDQXRNYTYBCvmnujejOAqEpqMZLCgKEtqoboEsnLl('vNOBmBvgYDisuqFFuxcrIsTdzyVCOfjypWGXTDLehpADHyQMLOXTquNRmFpbGVkIHRvIHNldCBza3kgdG8gbm9vbjog') .. err)
+-- Variables
+local isSkyLit = false
+local lightingGui
+
+-- Function to light up the sky
+local function lightUpSky()
+    while isSkyLit do
+        Lighting.Ambient = Color3.new(1, 1, 1) -- Set ambient light to white
+        Lighting.Brightness = 2 -- Increase brightness
+        wait(0.001) -- Wait for 0.001 seconds
     end
 end
 
--- Infinite loop to continuously light up the sky
-while true do
-    setSkyToNoon()
-    wait(0.001) -- Wait for 0.001 seconds before the next iteration
+-- Function to toggle sky lighting
+local function toggleSkyLighting()
+    isSkyLit = not isSkyLit
+    if isSkyLit then
+        lightUpSky()
+    else
+        Lighting.Ambient = Color3.new(0.5, 0.5, 0.5) -- Reset ambient light
+        Lighting.Brightness = 1 -- Reset brightness
+    end
 end
+
+-- Create GUI
+local function createGui()
+    local player = Players.LocalPlayer
+    lightingGui = Instance.new(rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('JZPIAmkNUxFzrsTkRKQTeslqubyGnKvbZjhAwzalSubAXDQMIiJkFlRU2NyZWVuR3Vp'), player:WaitForChild(rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('qRuxlPMxyNiFMihoNDqzIKvIrzSKunlKAYaRewhvwqYBpTPHMxMBsUXUGxheWVyR3Vp')))
+    local toggleButton = Instance.new(rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('QfNnvLemGfUIoYZvcnpxUSbBjGtwcIredUjHXyPWihjATjLYlRnpLwBVGV4dEJ1dHRvbg=='), lightingGui)
+
+    toggleButton.Size = UDim2.new(0, 100, 0, 50)
+    toggleButton.Position = UDim2.new(0.5, -50, 0.5, -25)
+    toggleButton.Text = rsGLNwwywIGxUrwtIinWTHwAiRQiSifrepYRcwiNiBvjbkjjJYPjXDQIDROXFlfGHjH('HJmzBpzNTdmfeewikJsIzPhmBEJdNGUSLYisgfuyQSfrZNGPhKiNkBZVG9nZ2xlIFNreQ==')
+
+    toggleButton.MouseButton1Click:Connect(function()
+        pcall(toggleSkyLighting) -- Error handling for toggling
+    end)
+end
+
+-- Main execution
+local function main()
+    pcall(function()
+        createGui() -- Create GUI
+    end)
+end
+
+-- Run the main function
+main()
    
